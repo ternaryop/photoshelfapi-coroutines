@@ -9,7 +9,9 @@ import com.ternaryop.photoshelf.api.parser.TitleComponentsResult
  */
 
 data class ImageGalleryResult(val gallery: ImageGallery)
-class ImageGallery(val domain: String? = null,
+class ImageGallery(
+    val url: String,
+    val domain: String? = null,
     val title: String? = null,
     var titleParsed: TitleComponentsResult,
     @SerializedName("gallery") val imageInfoList: List<ImageInfo>) {
