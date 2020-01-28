@@ -9,12 +9,14 @@ import com.ternaryop.photoshelf.api.parser.TitleComponentsResult
  */
 
 data class ImageGalleryResult(val gallery: ImageGallery)
+
 class ImageGallery(
     val url: String,
     val domain: String? = null,
     val title: String? = null,
     var titleParsed: TitleComponentsResult,
-    @SerializedName("gallery") val imageInfoList: List<ImageInfo>) {
+    @SerializedName("gallery") val imageInfoList: List<ImageInfo>
+) {
     /**
      * Return a string that can be used by the title parser
      * @return the title plus domain string
@@ -31,4 +33,8 @@ data class ImageResult(val imageUrl: String)
  * @param imageUrl The image url present inside the destination document url. If null must be retrieved from
  * destination document
  */
-class ImageInfo(val thumbnailUrl: String? = null, var documentUrl: String? = null, var imageUrl: String? = null)
+class ImageInfo(
+    val thumbnailUrl: String? = null,
+    var documentUrl: String? = null,
+    var imageUrl: String? = null
+)

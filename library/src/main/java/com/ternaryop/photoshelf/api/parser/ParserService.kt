@@ -9,5 +9,6 @@ interface ParserService {
     suspend fun components(
         @Query("title") title: String,
         @Query("swapDayMonth") swapDayMonth: Boolean = false,
-        @Query("checkDateInTheFuture") checkDateInTheFuture: Boolean = true): Response<TitleComponentsResult>
+        @Query("checkDateInTheFuture") checkDateInTheFuture: Boolean = true
+    ): Response<TitleComponentsResult>
 }

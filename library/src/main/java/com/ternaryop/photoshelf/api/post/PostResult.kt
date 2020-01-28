@@ -5,11 +5,15 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.util.Locale
 
-data class LatestTimestampResult(val importCount: Int,
+data class LatestTimestampResult(
+    val importCount: Int,
     val lastPublishTimestamp: Long,
-    val publishedIdList: List<String>?)
+    val publishedIdList: List<String>?
+)
+
 data class LatestTagResult(val pairs: Map<String, Long>)
 data class StatsResult(val stats: Map<String, Long>)
+
 data class MisspelledResult(val misspelled: String, val corrected: String?)
 
 data class TagInfo(val tag: String, var postCount: Long) {
@@ -24,7 +28,7 @@ fun titlesRequestBody(titles: Collection<String>): RequestBody =
 fun List<String>.toTagInfo(): List<TagInfo> {
     return groupingBy { it.toLowerCase(Locale.getDefault()) }
         .fold(
-            { key, _ -> TagInfo(key, 0)},
-            { _, tagInfo, _ -> tagInfo.also { ++it.postCount}})
+            { key, _ -> TagInfo(key, 0) },
+            { _, tagInfo, _ -> tagInfo.also { ++it.postCount } })
         .values.toList()
 }

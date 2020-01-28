@@ -6,28 +6,32 @@ import java.util.Calendar
 
 data class NameResult(
     @SerializedName("birthday") val birthday: Birthday,
-    @SerializedName("isNew") val isNew: Boolean)
+    @SerializedName("isNew") val isNew: Boolean
+)
 
 data class ListResult(@SerializedName("names") val names: List<String>)
 
 data class BirthdayResult(
     @SerializedName("total") val total: Long,
-    @SerializedName("birthdays") val birthdays: List<Birthday>?) : Serializable
+    @SerializedName("birthdays") val birthdays: List<Birthday>?
+) : Serializable
 
 data class Birthday(
     @SerializedName("name") val name: String,
     @SerializedName("birthdate") var birthdate: Calendar,
     @SerializedName("images") val images: List<ImageSize>? = null,
-    @SerializedName("source") val source: String? = null) : Serializable
+    @SerializedName("source") val source: String? = null
+) : Serializable
 
 data class ImageSize(
     @SerializedName("width") val width: Int,
     @SerializedName("height") val height: Int,
-    @SerializedName("url") val url: String) : Serializable
+    @SerializedName("url") val url: String
+) : Serializable
 
 // some images don't have the exact (==) width so we get closest width (<=)
 fun Birthday.getClosestPhotoByWidth(width: Int):
-    ImageSize? = images?.firstOrNull { it.width <= width }
+        ImageSize? = images?.firstOrNull { it.width <= width }
 
 class FindParams(
     val name: String? = null,
@@ -37,7 +41,8 @@ class FindParams(
     val limit: Int = 1000,
     val onlyTotal: Boolean = false,
     val pickImages: Boolean = false,
-    val blogName: String? = null) {
+    val blogName: String? = null
+) {
 
     init {
         if (pickImages) {

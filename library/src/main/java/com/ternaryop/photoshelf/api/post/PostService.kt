@@ -18,8 +18,10 @@ import retrofit2.http.Query
  */
 interface PostService {
     @GET("v1/post/{blogName}/latestTimestamp")
-    suspend fun getLastPublishedTimestamp(@Path("blogName") blogName: String, @Query("since") since: Long)
-        : Response<LatestTimestampResult>
+    suspend fun getLastPublishedTimestamp(
+        @Path("blogName") blogName: String,
+        @Query("since") since: Long
+    ): Response<LatestTimestampResult>
 
     @GET("v1/post/{blogName}/stats")
     suspend fun getStats(@Path("blogName") blogName: String): Response<StatsResult>
@@ -28,12 +30,16 @@ interface PostService {
     suspend fun getCorrectMisspelledName(@Query("misspelled") name: String): Response<MisspelledResult>
 
     @POST("v1/post/{blogName}/latestTag")
-    suspend fun getMapLastPublishedTimestampTag(@Path("blogName") blogName: String, @Body titles: RequestBody)
-        : Response<LatestTagResult>
+    suspend fun getMapLastPublishedTimestampTag(
+        @Path("blogName") blogName: String,
+        @Body titles: RequestBody
+    ): Response<LatestTagResult>
 
     @GET("v1/post/{blogName}/tags")
-    suspend fun findTags(@Path("blogName") blogName: String, @Query("t") pattern: String)
-        : Response<TagInfoListResult>
+    suspend fun findTags(
+        @Path("blogName") blogName: String,
+        @Query("t") pattern: String
+    ): Response<TagInfoListResult>
 
     @FormUrlEncoded
     @POST("v1/post/editTags")
@@ -42,4 +48,3 @@ interface PostService {
     @DELETE("v1/post/{postId}")
     suspend fun deletePost(@Path("postId") postId: Long)
 }
-

@@ -11,7 +11,11 @@ import java.util.Calendar
 private val INVALID_CALENDAR = Calendar.getInstance().apply { clear() }
 
 class CalendarDeserializer : JsonDeserializer<Calendar> {
-    override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): Calendar {
+    override fun deserialize(
+        json: JsonElement?,
+        typeOfT: Type?,
+        context: JsonDeserializationContext?
+    ): Calendar {
         return json?.let {
             DateTimeFormatter.ISO_LOCAL_DATE.parse(it.asString, LocalDate::from).let { localDate ->
                 Calendar.getInstance().apply {

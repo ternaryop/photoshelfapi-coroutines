@@ -15,8 +15,10 @@ import retrofit2.http.QueryMap
 
 interface BirthdayService {
     @GET("v1/birthday/name/get")
-    suspend fun getByName(@Query("name") name: String, @Query("searchIfNew") searchIfNew: Boolean)
-        : Response<NameResult>
+    suspend fun getByName(
+        @Query("name") name: String,
+        @Query("searchIfNew") searchIfNew: Boolean
+    ): Response<NameResult>
 
     @GET("v1/birthday/date/find")
     suspend fun findByDate(@QueryMap params: Map<String, String>): Response<BirthdayResult>
