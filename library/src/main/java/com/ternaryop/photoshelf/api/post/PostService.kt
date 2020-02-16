@@ -1,7 +1,6 @@
 package com.ternaryop.photoshelf.api.post
 
 import com.ternaryop.photoshelf.api.Response
-import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -30,9 +29,9 @@ interface PostService {
     suspend fun getCorrectMisspelledName(@Query("misspelled") name: String): Response<MisspelledResult>
 
     @POST("v1/post/{blogName}/latestTag")
-    suspend fun getMapLastPublishedTimestampTag(
+    suspend fun getLastPublishedTag(
         @Path("blogName") blogName: String,
-        @Body titles: RequestBody
+        @Body titles: LastPublishedTitleHolder
     ): Response<LatestTagResult>
 
     @GET("v1/post/{blogName}/tags")
