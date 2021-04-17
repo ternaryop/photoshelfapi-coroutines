@@ -1,14 +1,15 @@
 package com.ternaryop.photoshelf.api
 
-import com.google.gson.GsonBuilder
-import com.ternaryop.photoshelf.api.util.gson.CalendarDeserializer
+import com.squareup.moshi.JsonClass
+import com.squareup.moshi.Moshi
+import com.ternaryop.photoshelf.api.moshi.adapter.CalendarAdapter
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.Calendar
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
+@JsonClass(generateAdapter = true)
 class Response<T>(val response: T)
 
 private const val WAIT_TIMEOUT_MINUTES = 5L
@@ -21,9 +22,9 @@ class PhotoShelfApi(
     inline fun <reified T> service(): T = builder.create(T::class.java)
 
     val builder: Retrofit by lazy {
-        val gson = GsonBuilder()
-            .registerTypeAdapter(Calendar::class.java, CalendarDeserializer())
-            .create()
+        val moshi = Moshi.Builder()
+            .add(CalendarAdapter())
+            .build()
         val interceptor = Interceptor { chain: Interceptor.Chain ->
             {
                 val newRequest = chain.request().newBuilder()
@@ -38,7 +39,7 @@ class PhotoShelfApi(
 
         Retrofit.Builder()
             .baseUrl(apiUrlPrefix)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(builder.build())
             .build()
     }

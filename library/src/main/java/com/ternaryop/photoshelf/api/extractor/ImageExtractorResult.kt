@@ -1,6 +1,7 @@
 package com.ternaryop.photoshelf.api.extractor
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import com.ternaryop.photoshelf.api.parser.TitleComponentsResult
 
 /**
@@ -8,14 +9,17 @@ import com.ternaryop.photoshelf.api.parser.TitleComponentsResult
  * The mapping object used to hold the Gallery result
  */
 
-data class ImageGalleryResult(val gallery: ImageGallery)
+@JsonClass(generateAdapter = true)
+data class ImageGalleryResult(
+    @Json(name = "gallery") val gallery: ImageGallery)
 
+@JsonClass(generateAdapter = true)
 class ImageGallery(
-    val url: String,
-    val domain: String? = null,
-    val title: String? = null,
-    var titleParsed: TitleComponentsResult,
-    @SerializedName("gallery") val imageInfoList: List<ImageInfo>
+    @Json(name = "url") val url: String,
+    @Json(name = "domain") val domain: String? = null,
+    @Json(name = "title") val title: String? = null,
+    @Json(name = "titleParsed") var titleParsed: TitleComponentsResult,
+    @Json(name = "gallery") val imageInfoList: List<ImageInfo>
 ) {
     /**
      * Return a string that can be used by the title parser
@@ -25,7 +29,9 @@ class ImageGallery(
         get() = "$title ::::: $domain"
 }
 
-data class ImageResult(val imageUrl: String)
+@JsonClass(generateAdapter = true)
+data class ImageResult(
+    @Json(name = "imageUrl") val imageUrl: String)
 
 /**
  * @param thumbnailUrl The thumbnail image url. This is present on the HTML document from which pick images
@@ -33,8 +39,9 @@ data class ImageResult(val imageUrl: String)
  * @param imageUrl The image url present inside the destination document url. If null must be retrieved from
  * destination document
  */
+@JsonClass(generateAdapter = true)
 class ImageInfo(
-    val thumbnailUrl: String? = null,
-    var documentUrl: String? = null,
-    var imageUrl: String? = null
+    @Json(name = "thumbnailUrl") val thumbnailUrl: String? = null,
+    @Json(name = "documentUrl") var documentUrl: String? = null,
+    @Json(name = "imageUrl") var imageUrl: String? = null
 )

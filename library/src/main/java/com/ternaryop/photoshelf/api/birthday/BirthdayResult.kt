@@ -1,32 +1,38 @@
 package com.ternaryop.photoshelf.api.birthday
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.io.Serializable
 import java.util.Calendar
 
+@JsonClass(generateAdapter = true)
 data class NameResult(
-    @SerializedName("birthday") val birthday: Birthday,
-    @SerializedName("isNew") val isNew: Boolean
+    @Json(name = "birthday") val birthday: Birthday,
+    @Json(name = "isNew") val isNew: Boolean
 )
 
-data class ListResult(@SerializedName("names") val names: List<String>)
+@JsonClass(generateAdapter = true)
+data class ListResult(@Json(name = "names") val names: List<String>)
 
+@JsonClass(generateAdapter = true)
 data class BirthdayResult(
-    @SerializedName("total") val total: Long,
-    @SerializedName("birthdays") val birthdays: List<Birthday>?
+    @Json(name = "total") val total: Long = 0,
+    @Json(name = "birthdays") val birthdays: List<Birthday>? = null
 ) : Serializable
 
+@JsonClass(generateAdapter = true)
 data class Birthday(
-    @SerializedName("name") val name: String,
-    @SerializedName("birthdate") var birthdate: Calendar,
-    @SerializedName("images") val images: List<ImageSize>? = null,
-    @SerializedName("source") val source: String? = null
+    @Json(name = "name") val name: String,
+    @Json(name = "birthdate") var birthdate: Calendar,
+    @Json(name = "images") val images: List<ImageSize>? = null,
+    @Json(name = "source") val source: String? = null
 ) : Serializable
 
+@JsonClass(generateAdapter = true)
 data class ImageSize(
-    @SerializedName("width") val width: Int,
-    @SerializedName("height") val height: Int,
-    @SerializedName("url") val url: String
+    @Json(name = "width") val width: Int,
+    @Json(name = "height") val height: Int,
+    @Json(name = "url") val url: String
 ) : Serializable
 
 // some images don't have the exact (==) width so we get closest width (<=)

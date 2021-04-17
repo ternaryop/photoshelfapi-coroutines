@@ -17,10 +17,11 @@ buildscript {
 
         okhttp3HttpLibVersion = '5.0.0-alpha.2'
 
-        gsonLibVersion = '2.8.6'
+        moshiLibVersion = '1.12.0'
+        moshiKotlinCodegenLibVersion = '1.12.0'
 
         retrofitLibVersion = '2.9.0'
-        retrofitConverterGsonLibVersion = '2.9.0'
+        retrofitConverterMoshiLibVersion = '2.9.0'
 
         junitLibVersion = '4.13.2'
 

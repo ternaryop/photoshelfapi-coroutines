@@ -1,12 +1,20 @@
 package com.ternaryop.photoshelf.api.parser
 
-data class EventDate(val day: Int?, val month: Int?, val year: Int?)
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
+data class EventDate(
+    @Json(name = "day") val day: Int?,
+    @Json(name = "month") val month: Int?,
+    @Json(name = "year") val year: Int?)
+
+@JsonClass(generateAdapter = true)
 data class TitleComponentsResult(
-    val who: List<String>,
-    val tags: List<String>,
-    val html: String,
-    val location: String?,
-    val city: String?,
-    val eventDate: EventDate?
+    @Json(name = "who") val who: List<String>,
+    @Json(name = "tags") val tags: List<String>,
+    @Json(name = "html") val html: String,
+    @Json(name = "location") val location: String?,
+    @Json(name = "city") val city: String?,
+    @Json(name = "eventDate") val eventDate: EventDate?
 )
