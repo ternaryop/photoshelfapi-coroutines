@@ -14,7 +14,8 @@ class BirthdayServiceUnitTest : AbsApiManagerUnitTest() {
                 dayOfMonth = 14,
                 blogName = blogName).toQueryMap())
             response.response.birthdays?.forEach {
-                println("BirthdayUnitTest.findByDate ${it.name} ${sdf.format(it.birthdate.time)}")
+                val birthdate = it.birthdate?.let { sdf.format(it.time) }
+                println("BirthdayUnitTest.findByDate ${it.name} ${birthdate}")
             }
         }
     }
@@ -26,6 +27,14 @@ class BirthdayServiceUnitTest : AbsApiManagerUnitTest() {
                 name = "a",
                 blogName = blogName).toQueryMap())
             println("BirthdayUnitTest.findIgnored ${response.response.names}")
+        }
+    }
+
+    @Test
+    fun getByName() {
+        runBlocking {
+            val response = ApiManager.birthdayService().getByName("not existing", true).response
+            println("BirthdayUnitTest.findIgnored ${response}")
         }
     }
 }

@@ -23,7 +23,7 @@ data class BirthdayResult(
 @JsonClass(generateAdapter = true)
 data class Birthday(
     @Json(name = "name") val name: String,
-    @Json(name = "birthdate") var birthdate: Calendar,
+    @Json(name = "birthdate") var birthdate: Calendar? = null,
     @Json(name = "images") val images: List<ImageSize>? = null,
     @Json(name = "source") val source: String? = null
 ) : Serializable
