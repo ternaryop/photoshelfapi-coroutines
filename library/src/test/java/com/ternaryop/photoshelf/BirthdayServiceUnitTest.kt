@@ -2,6 +2,7 @@ package com.ternaryop.photoshelf
 
 import com.ternaryop.photoshelf.api.ApiManager
 import com.ternaryop.photoshelf.api.birthday.FindParams
+import com.ternaryop.photoshelf.api.error.PhotoShelfApiException
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -15,7 +16,7 @@ class BirthdayServiceUnitTest : AbsApiManagerUnitTest() {
                 blogName = blogName).toQueryMap())
             response.response.birthdays?.forEach {
                 val birthdate = it.birthdate?.let { sdf.format(it.time) }
-                println("BirthdayUnitTest.findByDate ${it.name} ${birthdate}")
+                println("BirthdayUnitTest.findByDate ${it.name} $birthdate")
             }
         }
     }
@@ -37,4 +38,20 @@ class BirthdayServiceUnitTest : AbsApiManagerUnitTest() {
             println("BirthdayUnitTest.findIgnored ${response}")
         }
     }
+
+    @Test
+    fun throwError() {
+        runBlocking {
+            var error: PhotoShelfApiException? = null
+
+            try {
+                ApiManager.birthdayService().updateByName("", "1970-01-01")
+            } catch (e: PhotoShelfApiException) {
+                error = e
+                System.err.println("BirthdayServiceUnitTest.findByDate ${e.message}")
+            }
+            assert(error != null)
+        }
+    }
+
 }

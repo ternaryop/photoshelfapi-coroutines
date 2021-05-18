@@ -2,6 +2,7 @@ package com.ternaryop.photoshelf.api
 
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
+import com.ternaryop.photoshelf.api.error.errorInterceptor
 import com.ternaryop.photoshelf.api.moshi.adapter.CalendarAdapter
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -26,15 +27,14 @@ class PhotoShelfApi(
             .add(CalendarAdapter())
             .build()
         val interceptor = Interceptor { chain: Interceptor.Chain ->
-            {
-                val newRequest = chain.request().newBuilder()
-                    .addHeader("PhotoShelf-Subscription-Key", accessToken).build()
-                chain.proceed(newRequest)
-            }()
+            val newRequest = chain.request().newBuilder()
+                .addHeader("PhotoShelf-Subscription-Key", accessToken).build()
+            chain.proceed(newRequest)
         }
 
         val builder = okHttpClient?.newBuilder() ?: OkHttpClient.Builder()
         builder.interceptors().add(interceptor)
+        builder.interceptors().add(errorInterceptor)
         builder.readTimeout(WAIT_TIMEOUT_MINUTES, TimeUnit.MINUTES)
 
         Retrofit.Builder()
