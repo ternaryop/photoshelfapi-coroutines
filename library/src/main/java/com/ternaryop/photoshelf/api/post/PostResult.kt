@@ -55,7 +55,7 @@ data class TagInfo(val tag: String, var postCount: Long) {
 data class TagInfoListResult(val pattern: String, val tags: List<TagInfo>)
 
 fun List<String>.toTagInfo(): List<TagInfo> {
-    return groupingBy { it.toLowerCase(Locale.getDefault()) }
+    return groupingBy { it.lowercase(Locale.getDefault()) }
         .fold(
             { key, _ -> TagInfo(key, 0) },
             { _, tagInfo, _ -> tagInfo.also { ++it.postCount } })
