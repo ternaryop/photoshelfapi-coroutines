@@ -18,7 +18,11 @@ data class ListResult(@Json(name = "names") val names: List<String>)
 data class BirthdayResult(
     @Json(name = "total") val total: Long = 0,
     @Json(name = "birthdays") val birthdays: List<Birthday>? = null
-) : Serializable
+) : Serializable {
+    companion object {
+        private const val serialVersionUID: Long = 1
+    }
+}
 
 @JsonClass(generateAdapter = true)
 data class Birthday(
@@ -26,19 +30,28 @@ data class Birthday(
     @Json(name = "birthdate") var birthdate: Calendar? = null,
     @Json(name = "images") val images: List<ImageSize>? = null,
     @Json(name = "source") val source: String? = null
-) : Serializable
+) : Serializable {
+    companion object {
+        private const val serialVersionUID: Long = 1
+    }
+}
 
 @JsonClass(generateAdapter = true)
 data class ImageSize(
     @Json(name = "width") val width: Int,
     @Json(name = "height") val height: Int,
     @Json(name = "url") val url: String
-) : Serializable
+) : Serializable {
+    companion object {
+        private const val serialVersionUID: Long = 1
+    }
+}
 
 // some images don't have the exact (==) width so we get closest width (<=)
 fun Birthday.getClosestPhotoByWidth(width: Int):
-        ImageSize? = images?.firstOrNull { it.width <= width }
+    ImageSize? = images?.firstOrNull { it.width <= width }
 
+@Suppress("LongParameterList")
 class FindParams(
     val name: String? = null,
     val month: Int = -1,

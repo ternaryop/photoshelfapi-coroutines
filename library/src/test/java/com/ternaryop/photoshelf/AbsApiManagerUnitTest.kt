@@ -5,7 +5,7 @@ import org.junit.Before
 import java.text.SimpleDateFormat
 import java.util.Properties
 
-abstract class AbsApiManagerUnitTest {
+open class AbsApiManagerUnitTest {
     lateinit var blogName: String
     lateinit var properties: Properties
 

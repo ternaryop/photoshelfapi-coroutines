@@ -8,7 +8,7 @@ internal val errorInterceptor = Interceptor { chain ->
     val response = chain.proceed(request)
 
     if (!response.isSuccessful) {
-        response.body?.source()?.also { source ->
+        response.body.source().also { source ->
             source.request(Long.MAX_VALUE) // Buffer the entire body.
             val json = source.buffer.clone().readUtf8()
             Moshi.Builder()
