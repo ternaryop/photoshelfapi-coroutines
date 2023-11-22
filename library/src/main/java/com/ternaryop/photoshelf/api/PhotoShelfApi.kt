@@ -28,6 +28,7 @@ class PhotoShelfApi(
             .build()
         val interceptor = Interceptor { chain: Interceptor.Chain ->
             val newRequest = chain.request().newBuilder()
+                .addHeader("Accept", "application/json")
                 .addHeader("PhotoShelf-Subscription-Key", accessToken).build()
             chain.proceed(newRequest)
         }
